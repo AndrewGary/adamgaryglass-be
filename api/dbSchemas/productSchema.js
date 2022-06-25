@@ -26,6 +26,12 @@ const productSchema = mongoose.Schema({
     },
     salePrice: {
         type: Number
+    },
+    productImages: [{
+        type: String
+    }],
+    productImage: {
+        type: String
     }
 })
 
