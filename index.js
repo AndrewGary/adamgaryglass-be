@@ -1,13 +1,17 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const express = require('express');
+const dotenv = require('dotenv').config();
+const port = process.env.PORT || 9000;
+const { errorHandler } = require('./middleware/errorMiddleware')
 
-const server = require('./api/server.js');
+const productRouter = require('./routers/productRouter');
 
-server.get('/', (req, res, next) => {
-    
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false}))
+
+app.use('/api/products', productRouter);
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`)
 })
-
-const PORT = process.env.PORT || 9000;
-
-server.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}...`);
-});
