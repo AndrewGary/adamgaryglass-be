@@ -4,8 +4,9 @@ const Product = require('../models/productsModel');
 const { cloudinary } = require('../utils/cloudinary');
 
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find();
 
+    const products = await Product.find({ category: req.params.category})
+    
     res.status(200).json(products)
 })
 
