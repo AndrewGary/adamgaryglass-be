@@ -10,6 +10,13 @@ const getProducts = asyncHandler(async (req, res) => {
     res.status(200).json(products)
 })
 
+const getSpecificProduct = asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+
+    
+    res.status(200).json(product)
+})
+
 const addProduct = asyncHandler(async (req, res) => {
     let productBeingAdded = {
         name: req.body.data.name,
@@ -30,7 +37,7 @@ const addProduct = asyncHandler(async (req, res) => {
 
     productBeingAdded.images = imageURLs;
 
-    console.log('productBeingAdded: ', productBeingAdded);
+    // console.log('productBeingAdded: ', productBeingAdded);
 
     const product = await Product.create(productBeingAdded);
 
@@ -51,5 +58,6 @@ module.exports = {
     getProducts,
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getSpecificProduct
 }

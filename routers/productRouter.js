@@ -5,10 +5,13 @@ const {
     getProducts,
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getSpecificProduct
 } = require('../controllers/productController');
 
 router.get('/:category', getProducts)
+
+router.get('/productDetails/:id', getSpecificProduct);
 
 router.post('/', addProduct)
 
