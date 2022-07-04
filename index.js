@@ -3,6 +3,7 @@ const dotenv = require('dotenv').config();
 const port = process.env.PORT || 9000;
 const { errorHandler } = require('./middleware/errorMiddleware')
 const connectDB = require('./config/db');
+const path = require('path');
 
 const cors = require('cors');
 
@@ -18,11 +19,14 @@ app.use(express.urlencoded({ extended: false}))
 
 app.use('/api/products', productRouter);
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'))
-}
+// if(process.env.NODE_ENV === 'production'){
+//   app.use(express.static('client/build'))
+// }
 
-app
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+})
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })
