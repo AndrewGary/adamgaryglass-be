@@ -22,10 +22,16 @@ app.use('/api/products', productRouter);
 // if(process.env.NODE_ENV === 'production'){
 //   app.use(express.static('client/build'))
 // }
-
+const root = require('path').join(__dirname, 'client', 'build');
+app.use(express.static(root));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+  res.sendFile('index.html', { root });
 })
+// console.log('root: ', root);
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
+// })
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
